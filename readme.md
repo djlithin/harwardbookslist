@@ -79,11 +79,15 @@ list of books now be accessible under `localhost:8005`
 ## API to retrive DATA from database
 
 http://localhost:8005/api/books?page=1
-search parameter 
-	s string optional
-filters
-	title string optional
-	publisher string optional 
+
+-search parameter
+
+	-s string optional
+
+-filters
+	
+	-title string optional
+	-publisher string optional 
 
 
 
