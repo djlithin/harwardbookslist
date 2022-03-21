@@ -1,33 +1,29 @@
-# About
 
-This repository contains everything you need to get started to run a 
-Laravel 5 / 6 / 7 application with Docker in 3 minutes. It is made for legacy projects that cannot be upgraded to Laravel 8 in near future but would like to use docker.
-
-This package is not needed for Laravel 8 and upwards, as Laravel versions from 8 upwards ships with a wrapper for docker, called [Laravel Sail](https://laravel.com/docs/sail).
-
-## Table of Contents
-
-- [Setup](#setup)
-    - [1. Copy files](#step-1-copy-files-in-your-directory)
-    - [2. Execute Docker](#step-2-execute-docker)
-    - [3. Run Composer](#step-3-install-composer-dependencies)
-- [Enhancements](#enhancements)
-
-# Setup
+## Setup
 
 Its required that one has [docker-compose](https://docs.docker.com/compose/install/) on the machine installed.
 
-## Step 1: Copy files in your directory
+#Step 1: 
+1. Git clone & change directory
+2. Overwrite the credentions from your `.env` locally with those provided here
 
-### New project
+```sh
+APP_NAME=libraryapp
+APP_ENV=local
+APP_DEBUG=true
+APP_LOG_LEVEL=debug
+APP_KEY=base64:SB86V7gyBPPc2tyd/gNe2sKZCjCDKuVA21/USQjuABw=
 
-1. Download a new Laravel version from https://github.com/laravel/laravel/ by selecting the required branch or use the [laravel installer](https://laravel.com/docs/8.x#via-laravel-installer) to get the latest version.
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=local_laravel
+DB_USERNAME=local_developer
+DB_PASSWORD=secret
+DB_CONNECTION=mysql
 
-2. Copy the files from this repository in the same folder as your Laravel project folder.
+MAIL_DRIVER=log
+```
 
-### Existing project
-
-Copy all files except `.env` and `readme.md` in your current project folder. Overwrite the credentions from your `.env` locally with those provided here. If you dont want to overwrite database name and user, then please adjust the file in `docker-compose/mysql/init/01-databaes.sql` according to your needs.
 
 ## Step 2: Execute docker
 
@@ -66,26 +62,28 @@ and finally generate a key
   php artisan key:generate
   ```
 
-:tada: Congratulations. Your app should now be accessible under `localhost:8005`
+then Create table
 
-# Enhancements
-
-I like to use the following aliases to avoid going into the container every time:
-
-  ```
-  alias phpunit="docker-compose exec app vendor/bin/phpunit"
-  alias artisan="docker-compose exec app php artisan"
-  alias composer="docker-compose exec app composer"
+ ```sh
+  php artisan migrate
   ```
 
-Also, if you want to keep you laravel docker container
-running after a restart of your computer, you may add
+## Import data from Harward API using artisan command ( options --author, --genre) 
 
-  ```
-  restart: unless-stopped
+ ```sh
+  php artisan library library:create --author=shakespeare
   ```
 
-to each of your services (app,db,nginx).
+list of books now be accessible under `localhost:8005`
+
+## API to retrive DATA from database
+
+http://localhost:8005/api/books?page=1
+search parameter 
+	s string optional
+filters
+	title string optional
+	publisher string optional 
 
 
 
